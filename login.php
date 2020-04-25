@@ -4,7 +4,7 @@ $msg = "";
 
 if(isset($_POST['submit'])) {
     try {
-        $conn = new PDO("sqlite:database.sqlite");
+        $conn = new PDO("sqlite:database.db");
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

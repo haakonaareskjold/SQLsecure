@@ -14,7 +14,9 @@ if(isset($_POST['submit'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $password = password_hash($password, PASSWORD_DEFAULT, ["cost" => 11]);
+
+
 
         $sql = $conn->prepare ("INSERT INTO users (username, password) VALUES (:username, :password)");
         $sql->bindParam(':username', $username);
