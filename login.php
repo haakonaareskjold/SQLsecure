@@ -1,15 +1,16 @@
 <?php
 
 $msg = "";
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-if(isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $conn = new PDO("sqlite:database.db");
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+
 
         $sql = $conn->prepare("SELECT * FROM users WHERE username = :username");
         $sql->bindParam(':username', $username);
