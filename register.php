@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // creates table if it does not exist
-            $tables = $conn->prepare ("CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL, password TEXT NOT NULL)");
+            $tables = $conn->prepare ("CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)");
             $tables->execute();
 
             $password = password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
