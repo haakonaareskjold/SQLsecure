@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $tables = $conn->prepare ("CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL, password TEXT NOT NULL)");
             $tables->execute();
 
-            $password = password_hash($password, PASSWORD_ARGON2ID, ["cost" => 10]);
+            $password = password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
 
             $sql = $conn->prepare ("INSERT INTO users (username, password) VALUES (:username, :password)");
             $sql->bindParam(':username', $username);

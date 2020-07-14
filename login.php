@@ -18,6 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         while ($row = $sql->fetch()) {
             if (password_verify($password, $row['password'])) {
+                if (password_needs_rehash($row['password'], PASSWORD_DEFAULT, ["cost" => 10])) {
+
+                    //if hash uses argon2id, it will rehash to PASSWORD_DEFAULT (bcrypt as of current date)
+                    $newHash = password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
+
+                    //submit new hashed password to db
+                    $sql = $conn->prepare ("UPDATE users SET password = :password WHERE username = :username");
+                    $sql->bindParam('password', $newHash);
+                    $sql->bindParam(':username', $username);
+                    $sql->execute();
+                    echo "password has been rehashed!" . PHP_EOL;
+                }
                 header("refresh:2;url= /");
                 exit($msg = "$username have successfully logged in!");
             } else $msg = "Wrong password for $username, try again!";
