@@ -1,5 +1,6 @@
 # SQLsecure
 testing cryptography with SQL
 
-## can be tested with local webhost in php
-`php -S localhost:8000`
+### Usage
+run `docker-compose up -d`, will be
+accessible on `localhost:8080` in browser
